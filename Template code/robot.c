@@ -231,13 +231,13 @@ void robotUpdate(struct SDL_Renderer * renderer, struct Robot * robot){
     SDL_RenderDrawLine(renderer,xBL, yBL, xTL, yTL);
     SDL_RenderDrawLine(renderer,xTL, yTL, xTR, yTR);
 
-    //Front Right Sensor
+    //Centre Right Sensor
     int sensor_sensitivity =  floor(SENSOR_VISION/5);
     int i;
     for (i = 0; i < 5; i++)
     {
-        xDir = round(robotCentreX+(ROBOT_WIDTH/2-2)*cos((robot->angle)*PI/180)-(-ROBOT_HEIGHT/2-SENSOR_VISION+sensor_sensitivity*i)*sin((robot->angle)*PI/180));
-        yDir = round(robotCentreY+(ROBOT_WIDTH/2-2)*sin((robot->angle)*PI/180)+(-ROBOT_HEIGHT/2-SENSOR_VISION+sensor_sensitivity*i)*cos((robot->angle)*PI/180));
+        xDir = round(robotCentreX+(ROBOT_WIDTH/2-13)*cos((robot->angle - 270)*PI/180)-(-ROBOT_HEIGHT/2-SENSOR_VISION+sensor_sensitivity*i)*sin((robot->angle - 270)*PI/180));
+        yDir = round(robotCentreY+(ROBOT_WIDTH/2-13)*sin((robot->angle - 270)*PI/180)+(-ROBOT_HEIGHT/2-SENSOR_VISION+sensor_sensitivity*i)*cos((robot->angle - 270)*PI/180));
         xTL = (int) xDir;
         yTL = (int) yDir;
 
@@ -247,11 +247,11 @@ void robotUpdate(struct SDL_Renderer * renderer, struct Robot * robot){
         SDL_RenderFillRect(renderer, &rect);
     }
 
-    //Front Left Sensor
+    //Front Sensor
     for (i = 0; i < 5; i++)
     {
-        xDir = round(robotCentreX+(-ROBOT_WIDTH/2)*cos((robot->angle)*PI/180)-(-ROBOT_HEIGHT/2-SENSOR_VISION+sensor_sensitivity*i)*sin((robot->angle)*PI/180));
-        yDir = round(robotCentreY+(-ROBOT_WIDTH/2)*sin((robot->angle)*PI/180)+(-ROBOT_HEIGHT/2-SENSOR_VISION+sensor_sensitivity*i)*cos((robot->angle)*PI/180));
+        xDir = round(robotCentreX+(ROBOT_WIDTH/2 - 10)*cos((robot->angle)*PI/180)-(-ROBOT_HEIGHT/2-SENSOR_VISION+sensor_sensitivity*i)*sin((robot->angle)*PI/180));
+        yDir = round(robotCentreY+(ROBOT_WIDTH/2 - 10)*sin((robot->angle)*PI/180)+(-ROBOT_HEIGHT/2-SENSOR_VISION+sensor_sensitivity*i)*cos((robot->angle)*PI/180));
         xTL = (int) xDir;
         yTL = (int) yDir;
 
@@ -312,22 +312,22 @@ void robotMotorMove(struct Robot * robot) {
     robot->y = (int) y_offset;
 }
 
-void robotAutoMotorMove(struct Robot * robot, int front_left_sensor, int front_right_sensor) {
+void robotAutoMotorMove(struct Robot * robot, int front_sensor, int right_sensor, int left_sensor) {
 
-    if ((front_left_sensor == 0) && (front_right_sensor == 0)) {
+    if (front_sensor == 0) {
         if (robot->currentSpeed<2)
             robot->direction = UP;
     }
-    else if ((robot->currentSpeed>0) && ((front_left_sensor == 1) || (front_right_sensor == 1)) ) {
+    else if ((robot->currentSpeed>0) && (front_sensor == 1)) {
         robot->direction = DOWN;
     }
-    else if ((robot->currentSpeed==0) && ((front_left_sensor == 1) || (front_right_sensor == 1)) ) {
+    else if ((robot->currentSpeed==0) && (front_sensor == 1) ) {
         robot->direction = LEFT;
     }
-    else if ((robot->currentSpeed==0) && ((front_left_sensor == 1) || (front_right_sensor == 0)) ) {
+    else if ((robot->currentSpeed==0) && (front_sensor == 1) ) {
         robot->direction = RIGHT;
     }
-    else if ((robot->currentSpeed==0) && ((front_left_sensor == 0) || (front_right_sensor == 1)) ) {
+    else if ((robot->currentSpeed==0) && (front_sensor == 0) ) {
         robot->direction = RIGHT;
     }
 }
