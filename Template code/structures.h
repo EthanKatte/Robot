@@ -40,6 +40,7 @@ struct Robot {
     int width, height;
     int crashed;
     int auto_mode;
+    int foundWall;
 };
 
 #endif // STRUCTURES_H_INCLUDED

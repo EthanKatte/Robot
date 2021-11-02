@@ -12,6 +12,7 @@ void setup_robot(struct Robot *robot){
     robot->currentSpeed = 0;
     robot->crashed = 0;
     robot->auto_mode = 0;
+    robot->foundWall = 0;
 
     printf("Press arrow keys to move manually, or enter to move automatically\n\n");
 }
@@ -78,7 +79,7 @@ int checkRobotSensor(int x, int y, int sensorSensitivityLength, struct Wall * wa
     return overlap;
 }
 
-int checkRobotSensorFrontRightAllWalls(struct Robot * robot, struct Wall_collection * head) {
+int checkRobotSensorCentreRightAllWalls(struct Robot * robot, struct Wall_collection * head) {
     struct Wall_collection *ptr, *head_store;
     int i;
     double xDir, yDir;
@@ -95,8 +96,8 @@ int checkRobotSensorFrontRightAllWalls(struct Robot * robot, struct Wall_collect
     for (i = 0; i < 5; i++)
     {
         ptr = head_store;
-        xDir = round(robotCentreX+(ROBOT_WIDTH/2-2)*cos((robot->angle)*PI/180)-(-ROBOT_HEIGHT/2-SENSOR_VISION+sensorSensitivityLength*i)*sin((robot->angle)*PI/180));
-        yDir = round(robotCentreY+(ROBOT_WIDTH/2-2)*sin((robot->angle)*PI/180)+(-ROBOT_HEIGHT/2-SENSOR_VISION+sensorSensitivityLength*i)*cos((robot->angle)*PI/180));
+        xDir = round(robotCentreX+(ROBOT_WIDTH/2-2)*cos((robot->angle - 270)*PI/180)-(-ROBOT_HEIGHT/2-SENSOR_VISION+sensorSensitivityLength*i)*sin((robot->angle - 270)*PI/180));
+        yDir = round(robotCentreY+(ROBOT_WIDTH/2-2)*sin((robot->angle - 270)*PI/180)+(-ROBOT_HEIGHT/2-SENSOR_VISION+sensorSensitivityLength*i)*cos((robot->angle - 270)*PI/180));
         xTL = (int) xDir;
         yTL = (int) yDir;
         hit = 0;
@@ -236,8 +237,8 @@ void robotUpdate(struct SDL_Renderer * renderer, struct Robot * robot){
     int i;
     for (i = 0; i < 5; i++)
     {
-        xDir = round(robotCentreX+(ROBOT_WIDTH/2-13)*cos((robot->angle - 270)*PI/180)-(-ROBOT_HEIGHT/2-SENSOR_VISION+sensor_sensitivity*i)*sin((robot->angle - 270)*PI/180));
-        yDir = round(robotCentreY+(ROBOT_WIDTH/2-13)*sin((robot->angle - 270)*PI/180)+(-ROBOT_HEIGHT/2-SENSOR_VISION+sensor_sensitivity*i)*cos((robot->angle - 270)*PI/180));
+        xDir = round(robotCentreX+(ROBOT_WIDTH/2 - 13)*cos((robot->angle - 270)*PI/180)-(-ROBOT_HEIGHT/2-SENSOR_VISION+sensor_sensitivity*i)*sin((robot->angle - 270)*PI/180));
+        yDir = round(robotCentreY+(ROBOT_WIDTH/2 - 13)*sin((robot->angle - 270)*PI/180)+(-ROBOT_HEIGHT/2-SENSOR_VISION+sensor_sensitivity*i)*cos((robot->angle - 270)*PI/180));
         xTL = (int) xDir;
         yTL = (int) yDir;
 
@@ -314,20 +315,30 @@ void robotMotorMove(struct Robot * robot) {
 
 void robotAutoMotorMove(struct Robot * robot, int front_sensor, int right_sensor, int left_sensor) {
 
-    if (front_sensor == 0) {
-        if (robot->currentSpeed<2)
+    if (robot->foundWall == 0) {
+        robot->currentSpeed = 0;
+        if(robot->angle != 270) {
+            robot->direction = LEFT;
+        }
+
+        else if (front_sensor == 0 && robot->currentSpeed < 2) {
+            robot->currentSpeed = 2;
+        }
+
+        else if (front_sensor == 1 || left_sensor == 1) {
+            robot->foundWall = 1;
+        }
+
+    }
+    else {
+        if(front_sensor != 0) {
+            robot->direction = RIGHT;
+        }
+        else if(front_sensor == 0 && left_sensor != 1 && robot->currentSpeed<2) {
             robot->direction = UP;
-    }
-    else if ((robot->currentSpeed>0) && (front_sensor == 1)) {
-        robot->direction = DOWN;
-    }
-    else if ((robot->currentSpeed==0) && (front_sensor == 1) ) {
-        robot->direction = LEFT;
-    }
-    else if ((robot->currentSpeed==0) && (front_sensor == 1) ) {
-        robot->direction = RIGHT;
-    }
-    else if ((robot->currentSpeed==0) && (front_sensor == 0) ) {
-        robot->direction = RIGHT;
+        }
+        else if(left_sensor == 0) {
+            robot->direction = LEFT;
+        }
     }
 }
