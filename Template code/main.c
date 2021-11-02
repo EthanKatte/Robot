@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "sdl.h"
-#include "SDL2_gfxPrimitives.h"
+//#include "SDL2_gfxPrimitives.h"
 #include "time.h"
 
 #include "formulas.h"
@@ -34,18 +34,31 @@ int main(int argc, char *argv[]) {
     // You describe position of top left corner of wall (x, y), then width and height going down/to right
     // Relative positions are used (OVERALL_WINDOW_WIDTH and OVERALL_WINDOW_HEIGHT)
     // But you can use absolute positions. 10 is used as the width, but you can change this.
-    insertAndSetFirstWall(&head, 1,  OVERALL_WINDOW_WIDTH/2, OVERALL_WINDOW_HEIGHT/2, 10, OVERALL_WINDOW_HEIGHT/2);
-    insertAndSetFirstWall(&head, 2,  OVERALL_WINDOW_WIDTH/2-100, OVERALL_WINDOW_HEIGHT/2+100, 10, OVERALL_WINDOW_HEIGHT/2-100);
-    insertAndSetFirstWall(&head, 3,  OVERALL_WINDOW_WIDTH/2-250, OVERALL_WINDOW_HEIGHT/2+100, 150, 10);
-    insertAndSetFirstWall(&head, 4,  OVERALL_WINDOW_WIDTH/2-150, OVERALL_WINDOW_HEIGHT/2, 150, 10);
-    insertAndSetFirstWall(&head, 5,  OVERALL_WINDOW_WIDTH/2-250, OVERALL_WINDOW_HEIGHT/2-200, 10, 300);
-    insertAndSetFirstWall(&head, 6,  OVERALL_WINDOW_WIDTH/2-150, OVERALL_WINDOW_HEIGHT/2-100, 10, 100);
-    insertAndSetFirstWall(&head, 7,  OVERALL_WINDOW_WIDTH/2-250, OVERALL_WINDOW_HEIGHT/2-200, 450, 10);
-    insertAndSetFirstWall(&head, 8,  OVERALL_WINDOW_WIDTH/2-150, OVERALL_WINDOW_HEIGHT/2-100, 250, 10);
-    insertAndSetFirstWall(&head, 9,  OVERALL_WINDOW_WIDTH/2+200, OVERALL_WINDOW_HEIGHT/2-200, 10, 300);
-    insertAndSetFirstWall(&head, 10,  OVERALL_WINDOW_WIDTH/2+100, OVERALL_WINDOW_HEIGHT/2-100, 10, 300);
-    insertAndSetFirstWall(&head, 11,  OVERALL_WINDOW_WIDTH/2+100, OVERALL_WINDOW_HEIGHT/2+200, OVERALL_WINDOW_WIDTH/2-100, 10);
+    insertAndSetFirstWall(&head, 1, 0, 0, 10 ,OVERALL_WINDOW_HEIGHT); // left wall
+    insertAndSetFirstWall(&head, 2, OVERALL_WINDOW_WIDTH-10, 0, 10, OVERALL_WINDOW_HEIGHT/2+100); // right wall
+    insertAndSetFirstWall(&head, 3,  OVERALL_WINDOW_WIDTH/2-400, OVERALL_WINDOW_HEIGHT/2+230, 800, 10); // bottom wall
+    insertAndSetFirstWall(&head, 4,  OVERALL_WINDOW_WIDTH/2-400, OVERALL_WINDOW_HEIGHT/2-240, 800, 10); // top wall
+
+    insertAndSetFirstWall(&head, 2,  OVERALL_WINDOW_WIDTH/2-150, OVERALL_WINDOW_HEIGHT/2+100, 10, OVERALL_WINDOW_HEIGHT/2-100);
+    insertAndSetFirstWall(&head, 3,  OVERALL_WINDOW_WIDTH/2-150, OVERALL_WINDOW_HEIGHT/2+100, 150, 10);
+    insertAndSetFirstWall(&head, 4,  OVERALL_WINDOW_WIDTH/2-250, OVERALL_WINDOW_HEIGHT/2, 110, 10);
+    insertAndSetFirstWall(&head, 5,  OVERALL_WINDOW_WIDTH/2-250, OVERALL_WINDOW_HEIGHT/2-150, 10, 200);
+    insertAndSetFirstWall(&head, 7,  OVERALL_WINDOW_WIDTH/2-250, OVERALL_WINDOW_HEIGHT/2-150, 450, 10);
+    insertAndSetFirstWall(&head, 8,  OVERALL_WINDOW_WIDTH/2-150, OVERALL_WINDOW_HEIGHT/2-80, 240, 10);
+    insertAndSetFirstWall(&head, 9,  OVERALL_WINDOW_WIDTH/2+200, OVERALL_WINDOW_HEIGHT/2-180, 10, 200);
+    insertAndSetFirstWall(&head, 10,  OVERALL_WINDOW_WIDTH/2+80, OVERALL_WINDOW_HEIGHT/2-100, 10, 350);
     insertAndSetFirstWall(&head, 12,  OVERALL_WINDOW_WIDTH/2+200, OVERALL_WINDOW_HEIGHT/2+100, OVERALL_WINDOW_WIDTH/2-100, 10);
+    insertAndSetFirstWall(&head, 6,  OVERALL_WINDOW_WIDTH/2-150, OVERALL_WINDOW_HEIGHT/2-100, 10, 50);
+    insertAndSetFirstWall(&head, 6,  OVERALL_WINDOW_WIDTH/2, OVERALL_WINDOW_HEIGHT/2-230, 10, 30);
+    insertAndSetFirstWall(&head, 6,  OVERALL_WINDOW_WIDTH/2-200, OVERALL_WINDOW_HEIGHT/2-180, 10, 30);
+
+    insertAndSetFirstWall(&head, 6,  OVERALL_WINDOW_WIDTH/2, OVERALL_WINDOW_HEIGHT/2-20, 10, 50);
+    insertAndSetFirstWall(&head, 6,  OVERALL_WINDOW_WIDTH/2-50, OVERALL_WINDOW_HEIGHT/2-20, 10, 50);
+    insertAndSetFirstWall(&head, 6,  OVERALL_WINDOW_WIDTH/2-50, OVERALL_WINDOW_HEIGHT/2-20, 50, 10);
+    insertAndSetFirstWall(&head, 6,  OVERALL_WINDOW_WIDTH/2-50, OVERALL_WINDOW_HEIGHT/2-10, 50, 10);
+    insertAndSetFirstWall(&head, 6,  OVERALL_WINDOW_WIDTH/2-50, OVERALL_WINDOW_HEIGHT/2, 50, 10);
+    insertAndSetFirstWall(&head, 6,  OVERALL_WINDOW_WIDTH/2-50, OVERALL_WINDOW_HEIGHT/2+10, 50, 10);
+    insertAndSetFirstWall(&head, 6,  OVERALL_WINDOW_WIDTH/2-50, OVERALL_WINDOW_HEIGHT/2+20, 50, 10);
 
     setup_robot(&robot);
     updateAllWalls(head, renderer);

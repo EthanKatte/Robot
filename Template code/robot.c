@@ -14,7 +14,7 @@ void setup_robot(struct Robot *robot){
     robot->auto_mode = 0;
     robot->foundWall = 0;
 
-    printf("Press arrow keys to move manually, or enter to move automatically\n\n");
+    printf("Press arrow keys to move manually, or enter to move automatically, or number to select a auto speed (default: 6)\n\n");
 }
 int robot_off_screen(struct Robot * robot){
     if(robot->x < 0 || robot-> y < 0){
@@ -313,32 +313,59 @@ void robotMotorMove(struct Robot * robot) {
     robot->y = (int) y_offset;
 }
 
+int prevDirection;
+
 void robotAutoMotorMove(struct Robot * robot, int front_sensor, int right_sensor, int left_sensor) {
+    int robotSpeed = 5;
+    if(robot->crashed != 1){
+        if (robot->foundWall == 0) {
+            robot->currentSpeed = 0;
+            if(robot->angle != 270) {
+                robot->direction = LEFT;
+            }
 
-    if (robot->foundWall == 0) {
-        robot->currentSpeed = 0;
-        if(robot->angle != 270) {
-            robot->direction = LEFT;
-        }
+            else if (front_sensor == 0 && robot->currentSpeed < robotSpeed) {
+                robot->currentSpeed = robotSpeed;
+            }
 
-        else if (front_sensor == 0 && robot->currentSpeed < 2) {
-            robot->currentSpeed = 2;
-        }
+            else if (front_sensor == 1 || left_sensor == 1) {
+                robot->foundWall = 1;
+            }
 
-        else if (front_sensor == 1 || left_sensor == 1) {
-            robot->foundWall = 1;
         }
+        else {
+            if(front_sensor < 3){
+                if(front_sensor != 0) {
+                    if(prevDirection != RIGHT){
+                        robot->direction = RIGHT;
+                        prevDirection = RIGHT;
+                    }
+                    else if(prevDirection != DOWN){
+                        robot->direction = DOWN;
+                        prevDirection = DOWN;
+                    }
+                    else{
+                        robot->direction = RIGHT;
+                    }
 
-    }
-    else {
-        if(front_sensor != 0) {
-            robot->direction = RIGHT;
-        }
-        else if(front_sensor == 0 && left_sensor != 1 && robot->currentSpeed<2) {
-            robot->direction = UP;
-        }
-        else if(left_sensor == 0) {
-            robot->direction = LEFT;
+                }
+                else if(front_sensor == 0 && left_sensor != 1 && robot->currentSpeed<robotSpeed) {
+                    robot->direction = UP;
+                }
+                else if(left_sensor == 0) {
+                    robot->direction = LEFT;
+                }
+            }
+            else{
+                if(front_sensor > 3 && robot->currentSpeed > 0){
+                    robot->direction = DOWN;
+                    prevDirection = DOWN;
+                }
+                else{
+                    robot->direction = RIGHT;
+                }
+
+            }
         }
     }
 }

@@ -30,13 +30,13 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="C:/mingw_dev_lib/include/SDL2" />
-			<Add directory="C:/Users/zneak/OneDrive - The University of Sydney (Students)/Documents/Uni/First Year/Semester 2/ELEC1601/SDL2_gfx-1.0.1" />
+			<Add directory="C:/Users/Ethan Katte/OneDrive - The University of Sydney (Students)/University/ELEC1601/Code blocks/MINGW/x86_64-w64-mingw32/include/SDL2" />
+			<Add directory="C:/Users/Ethan Katte/Downloads/SDL2_gfx-1.0.1/SDL2_gfx-1.0.1" />
 		</Compiler>
 		<Linker>
 			<Add option="-lmingw32 -lSDL2main -lSDL2" />
-			<Add directory="C:/mingw_dev_lib/lib" />
-			<Add directory="C:/mingw_dev_lib/bin" />
+			<Add directory="C:/Users/Ethan Katte/Downloads/MINGW/x86_64-w64-mingw32/bin" />
+			<Add directory="C:/Users/Ethan Katte/Downloads/MINGW/x86_64-w64-mingw32/lib" />
 		</Linker>
 		<Unit filename="formulas.c">
 			<Option compilerVar="CC" />
