@@ -78,7 +78,7 @@ int checkRobotSensor(int x, int y, int sensorSensitivityLength, struct Wall * wa
 
     return overlap;
 }
-
+//Front sensor
 int checkRobotSensorFrontAllWalls(struct Robot * robot, struct Wall_collection * head) {
     struct Wall_collection *ptr, *head_store;
     int i;
@@ -111,7 +111,7 @@ int checkRobotSensorFrontAllWalls(struct Robot * robot, struct Wall_collection *
     }
     return score;
 }
-
+//Left sensor
 int checkRobotSensorLeftAllWalls(struct Robot * robot, struct Wall_collection * head) {
     struct Wall_collection *ptr, *head_store;
     int i;
@@ -145,6 +145,7 @@ int checkRobotSensorLeftAllWalls(struct Robot * robot, struct Wall_collection * 
     return score;
 }
 
+//Right Sensor
 int checkRobotSensorRightAllWalls(struct Robot * robot, struct Wall_collection * head) {
     struct Wall_collection *ptr, *head_store;
     int i;
@@ -313,58 +314,71 @@ void robotMotorMove(struct Robot * robot) {
     robot->y = (int) y_offset;
 }
 
-int prevDirection;
+void robotAutoMotorMove(struct Robot * robot, int left_sensor, int front_sensor, int right_sensor) {
 
-void robotAutoMotorMove(struct Robot * robot, int front_sensor, int right_sensor, int left_sensor) {
-    int robotSpeed = 5;
     if(robot->crashed != 1){
         if (robot->foundWall == 0) {
-            robot->currentSpeed = 0;
             if(robot->angle != 270) {
+                robot->currentSpeed = 0;
                 robot->direction = LEFT;
             }
 
-            else if (front_sensor == 0 && robot->currentSpeed < robotSpeed) {
-                robot->currentSpeed = robotSpeed;
+            else if (front_sensor == 0 && robot->currentSpeed < 6) {
+                robot->direction = UP;
             }
 
-            else if (front_sensor == 1 || left_sensor == 1) {
+            else if (front_sensor != 0 || left_sensor != 0) {
                 robot->foundWall = 1;
             }
 
         }
-        else {
-            if(front_sensor < 3){
-                if(front_sensor != 0) {
-                    if(prevDirection != RIGHT){
-                        robot->direction = RIGHT;
-                        prevDirection = RIGHT;
-                    }
-                    else if(prevDirection != DOWN){
-                        robot->direction = DOWN;
-                        prevDirection = DOWN;
-                    }
-                    else{
-                        robot->direction = RIGHT;
-                    }
 
-                }
-                else if(front_sensor == 0 && left_sensor != 1 && robot->currentSpeed<robotSpeed) {
+        else {
+            //left turn
+            if (left_sensor == 0 && front_sensor == 0 && right_sensor == 0) {
+                robot->direction = LEFT;
+            }
+
+            //detected wall in front, turn right to follow it
+            else if (left_sensor == 0 && front_sensor != 0 && right_sensor == 0) {
+                robot->direction = RIGHT;
+            }
+
+            //follow the left wall
+            else if (left_sensor != 0 && front_sensor == 0) {
+
+                if (robot->currentSpeed < 6) {
                     robot->direction = UP;
                 }
-                else if(left_sensor == 0) {
-                    robot->direction = LEFT;
-                }
             }
-            else{
-                if(front_sensor > 3 && robot->currentSpeed > 0){
-                    robot->direction = DOWN;
-                    prevDirection = DOWN;
-                }
-                else{
-                    robot->direction = RIGHT;
-                }
 
+            //situation where robot can only see right wall, turn around
+            else if (left_sensor == 0 && front_sensor == 0 && right_sensor != 0) {
+                if (robot->currentSpeed > 0) {
+                    robot->direction = DOWN;
+                }
+                robot->direction = LEFT;
+            }
+
+            //right turn
+            else if (left_sensor != 0 && front_sensor != 0 && right_sensor == 0) {
+                robot->direction = RIGHT;
+            }
+
+            //dead end turn around
+            else if (left_sensor != 0 && front_sensor != 0 && right_sensor != 0) {
+                if (robot->currentSpeed > 0) {
+                    robot->direction = DOWN;
+                }
+                robot->direction = LEFT;
+            }
+
+            //right corner
+            else if (left_sensor == 0 && front_sensor != 0 && right_sensor != 0) {
+                if (robot->currentSpeed > 0) {
+                    robot->direction = DOWN;
+                }
+                robot->direction = LEFT;
             }
         }
     }
