@@ -18,7 +18,7 @@
 #define DEFAULT_SPEED_CHANGE 1
 #define MAX_ROBOT_SPEED 25
 #define PI 3.14159265
-#define SENSOR_VISION 45
+#define SENSOR_VISION 27
 
 struct Wall {
     int x,y;
