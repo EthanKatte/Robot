@@ -420,30 +420,32 @@
 1634609734 source:c:\users\zneak\onedrive - the university of sydney (students)\documents\uni\first year\semester 2\elec1601\project\wall.c
 	"wall.h"
 
-1635817060 source:c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\formulas.c
+1636271351 source:c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\formulas.c
 	"formulas.h"
 
-1635817060 c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\formulas.h
+1636271351 c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\formulas.h
 	"math.h"
 
-1635822218 source:c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\main.c
+1636271700 source:c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\main.c
 	"stdio.h"
 	"stdlib.h"
 	"sdl.h"
+	"SDL2_gfxPrimitives.h"
 	"time.h"
 	"formulas.h"
 	"wall.h"
 	"robot.h"
 
-1635817407 c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\wall.h
+1636271351 c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\wall.h
 	"stdio.h"
 	"stdlib.h"
 	"sdl.h"
+	"SDL2_gfxPrimitives.h"
 	"structures.h"
 
-1635817060 c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\structures.h
+1636271351 c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\structures.h
 
-1635817407 c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\robot.h
+1636271351 c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\robot.h
 	"stdio.h"
 	"stdlib.h"
 	"sdl.h"
@@ -453,10 +455,10 @@
 	"wall.h"
 	"math.h"
 
-1635821704 source:c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\robot.c
+1636271739 source:c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\robot.c
 	"robot.h"
 
-1635817060 source:c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\wall.c
+1636271351 source:c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\robot\template code\wall.c
 	"wall.h"
 
 1634002315 c:\users\ethan katte\onedrive - the university of sydney (students)\university\elec1601\code blocks\mingw\x86_64-w64-mingw32\include\sdl2\sdl.h

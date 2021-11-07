@@ -26,12 +26,20 @@ void robotSuccess(struct Robot * robot, int msec);
 int checkRobotSensor(int x, int y, int sensorSensitivityLength, struct Wall * wall) ;
 int checkRobotSensorFrontAllWalls(struct Robot * robot, struct Wall_collection * head);
 int checkRobotSensorLeftAllWalls(struct Robot * robot, struct Wall_collection * head);
+<<<<<<< HEAD
+=======
+int checkRobotSensorRightAllWalls(struct Robot * robot, struct Wall_collection * head);
+>>>>>>> 967b50e3a7754014d5e9f72758bbd12d68515f56
 
 //Visual Display
 void robotUpdate(struct SDL_Renderer * renderer, struct Robot * robot);
 
 //Movement
 void robotMotorMove(struct Robot * robot);
+<<<<<<< HEAD
 void robotAutoMotorMove(struct Robot * robot, int left_sensor, int front_left_sensor);
+=======
+void robotAutoMotorMove(struct Robot * robot, int left_sensor, int front_sensor, int right_sensor);
+>>>>>>> 967b50e3a7754014d5e9f72758bbd12d68515f56
 
 #endif // ROBOT_H_INCLUDED
