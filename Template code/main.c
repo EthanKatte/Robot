@@ -65,9 +65,6 @@ int main(int argc, char *argv[]) {
         SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
         SDL_RenderClear(renderer);
 
-        if (checkRobotReachedEnd(&robot, 220, 480, 100, 10)){ //Maze 2
-                printf("FINISHED");
-        }
 
         //Move robot based on user input commands/auto commands
         if (robot.auto_mode == 1)
@@ -75,7 +72,7 @@ int main(int argc, char *argv[]) {
         robotMotorMove(&robot);
 
         //Check if robot reaches endpoint. and check sensor values
-        if (checkRobotReachedEnd(&robot, OVERALL_WINDOW_WIDTH, OVERALL_WINDOW_HEIGHT/2+100, 10, 100)){
+        if (checkRobotReachedEnd(&robot, 220, 480, 100, 10)){
             end_time = clock();
             msec = (end_time-start_time) * 1000 / CLOCKS_PER_SEC;
             robotSuccess(&robot, msec);
