@@ -26,11 +26,7 @@ int main(int argc, char *argv[]) {
 
     struct Robot robot;
     struct Wall_collection *head = NULL;
-<<<<<<< HEAD
     int left_sensor, front_left_sensor=0;
-=======
-    int left_sensor, front_sensor, right_sensor=0;
->>>>>>> 967b50e3a7754014d5e9f72758bbd12d68515f56
     clock_t start_time, end_time;
     int msec;
 
@@ -39,7 +35,6 @@ int main(int argc, char *argv[]) {
     // You describe position of top left corner of wall (x, y), then width and height going down/to right
     // Relative positions are used (OVERALL_WINDOW_WIDTH and OVERALL_WINDOW_HEIGHT)
     // But you can use absolute positions. 10 is used as the width, but you can change this.
-<<<<<<< HEAD
     int CELL_WIDTH = (OVERALL_WINDOW_WIDTH-WALL_WIDTH)/10-WALL_WIDTH;
     int CELL_HEIGHT = (OVERALL_WINDOW_HEIGHT-WALL_WIDTH)/7-WALL_WIDTH;
     int i;
@@ -105,30 +100,6 @@ int main(int argc, char *argv[]) {
     insertAndSetFirstWall(&head, 2,  640-70-530, 100, 70, 10);
     insertAndSetFirstWall(&head, 2,  640-10-530, 80, 10, 20);
     insertAndSetFirstWall(&head, 2,  640-110-530, 80, 110, 10);
-=======
-      insertAndSetFirstWall(&head, 2,  220, 400, 10, 80);
-    insertAndSetFirstWall(&head, 2,  20, 400, 200, 10);
-    insertAndSetFirstWall(&head, 2,  20, 50, 10, 350);
-    insertAndSetFirstWall(&head, 2,  20, 50, 280, 10);
-    insertAndSetFirstWall(&head, 2,  300, 50, 10, 100);
-    insertAndSetFirstWall(&head, 2,  300, 150, 110, 10);
-    insertAndSetFirstWall(&head, 2,  400, 50, 10, 100);
-    insertAndSetFirstWall(&head, 2,  400, 50, 220, 10);
-    insertAndSetFirstWall(&head, 2,  620, 50, 10, 290);
-    insertAndSetFirstWall(&head, 2,  620, 340, 20, 10);
-
-    insertAndSetFirstWall(&head, 1,  320, 300, 10, 180);
-    insertAndSetFirstWall(&head, 2,  120, 300, 200, 10);
-    insertAndSetFirstWall(&head, 2,  120, 150, 10, 150);
-    insertAndSetFirstWall(&head, 2,  120, 150, 80, 10);
-    insertAndSetFirstWall(&head, 2,  200, 150, 10, 100);
-    insertAndSetFirstWall(&head, 2,  200, 250, 310, 10);
-    insertAndSetFirstWall(&head, 2,  500, 150, 10, 100);
-    insertAndSetFirstWall(&head, 2,  500, 150, 10, 100);
-    insertAndSetFirstWall(&head, 2,  500, 150, 20, 10);
-    insertAndSetFirstWall(&head, 2,  520, 150, 10, 290);
-    insertAndSetFirstWall(&head, 2,  520, 440, 120, 10);
->>>>>>> 967b50e3a7754014d5e9f72758bbd12d68515f56
 
     setup_robot(&robot);
     updateAllWalls(head, renderer);
@@ -138,22 +109,13 @@ int main(int argc, char *argv[]) {
         SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
         SDL_RenderClear(renderer);
 
-
         //Move robot based on user input commands/auto commands
         if (robot.auto_mode == 1)
-<<<<<<< HEAD
             robotAutoMotorMove(&robot, left_sensor, front_left_sensor);
         robotMotorMove(&robot);
 
         //Check if robot reaches endpoint. and check sensor values
         if (checkRobotReachedEnd(&robot, 0, 20, 10, 60)){
-=======
-            robotAutoMotorMove(&robot, left_sensor, front_sensor, right_sensor);
-        robotMotorMove(&robot);
-
-        //Check if robot reaches endpoint. and check sensor values
-        if (checkRobotReachedEnd(&robot, 220, 480, 100, 10)){
->>>>>>> 967b50e3a7754014d5e9f72758bbd12d68515f56
             end_time = clock();
             msec = (end_time-start_time) * 1000 / CLOCKS_PER_SEC;
             robotSuccess(&robot, msec);
@@ -166,19 +128,9 @@ int main(int argc, char *argv[]) {
             if (left_sensor>0)
                 printf("Getting close on the left. Score = %d\n", left_sensor);
 
-<<<<<<< HEAD
             front_left_sensor = checkRobotSensorFrontLeftAllWalls(&robot, head);
             if (front_left_sensor>0)
                 printf("Getting close on the Front Left. Score = %d\n", front_left_sensor);
-=======
-            front_sensor = checkRobotSensorFrontAllWalls(&robot, head);
-            if (front_sensor>0)
-                printf("Getting close on the Front. Score = %d\n", front_sensor);
-
-            right_sensor = checkRobotSensorRightAllWalls(&robot, head);
-            if (right_sensor>0)
-                printf("Getting close on the right. Score = %d\n", right_sensor);
->>>>>>> 967b50e3a7754014d5e9f72758bbd12d68515f56
         }
         robotUpdate(renderer, &robot);
         updateAllWalls(head, renderer);
