@@ -41,6 +41,7 @@ struct Robot {
     int crashed;
     int auto_mode;
     int foundWall;
+    int startTurns;
 };
 
 #endif // STRUCTURES_H_INCLUDED

@@ -1,18 +1,20 @@
 #include "robot.h"
 
 void setup_robot(struct Robot *robot){
-    robot->x = 640-10-170;
-    robot->y = 460;
-    robot->true_x = 640-10-170;
-    robot->true_y = 460;
+    robot->x = 0;
+    robot->y = 380;
+    robot->true_x = 0;
+    robot->true_y = 380;
     robot->width = ROBOT_WIDTH;
     robot->height = ROBOT_HEIGHT;
     robot->direction = 0;
-    robot->angle = 0;
+    robot->angle = 90;
     robot->currentSpeed = 0;
     robot->crashed = 0;
     robot->auto_mode = 0;
     robot->foundWall = 0;
+    robot->startTurns = 0;
+
 
     printf("Press arrow keys to move manually, or enter to move automatically\n\n");
 }
@@ -280,6 +282,10 @@ void robotAutoMotorMove(struct Robot * robot, int left_sensor, int front_left_se
                 if (robot->currentSpeed > 0) {
                     robot->direction = DOWN;
                 }
+                if (robot->startTurns != 0) {
+                    robot->direction = RIGHT;
+                    robot->startTurns -= 1;
+                }
                 else {
                     robot->foundWall = 1;
                 }
@@ -287,8 +293,9 @@ void robotAutoMotorMove(struct Robot * robot, int left_sensor, int front_left_se
             }
 
             //check if robot is facing left, and if not, turn it left
-            else if(robot->angle != 270) {
+            else if(robot->startTurns != 6) {
                 robot->direction = LEFT;
+                robot->startTurns += 1;
             }
 
             //once facing left, move foward and find a wall
