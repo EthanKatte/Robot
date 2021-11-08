@@ -2,9 +2,9 @@
 
 void setup_robot(struct Robot *robot){
     robot->x = 0;
-    robot->y = 380;
+    robot->y = 40;
     robot->true_x = 0;
-    robot->true_y = 380;
+    robot->true_y = 40;
     robot->width = ROBOT_WIDTH;
     robot->height = ROBOT_HEIGHT;
     robot->direction = 0;
@@ -12,6 +12,7 @@ void setup_robot(struct Robot *robot){
     robot->currentSpeed = 0;
     robot->crashed = 0;
     robot->auto_mode = 0;
+
     robot->foundWall = 0;
     robot->startTurns = 0;
 
@@ -299,30 +300,16 @@ void robotAutoMotorMove(struct Robot * robot, int left_sensor, int front_left_se
             }
 
             //once facing left, move foward and find a wall
-            else if (front_left_sensor == 0 && robot->currentSpeed < 3) {
+            else if (front_left_sensor == 0 && robot->currentSpeed < 2) {
                 robot->direction = UP;
             }
         }
 
         //main block which solves the maze
         else {
-            //left turn
-            if (left_sensor == 0 && front_left_sensor == 0) {
-                //makes sure robot is at speed 2
-                if (robot->currentSpeed > 2) {
-                    robot->direction = DOWN;
-                }
-                else if (robot->currentSpeed < 2) {
-                    robot->direction = UP;
-                }
-                //actually turns the robot left
-                else {
-                    robot->direction = LEFT;
-                }
-            }
 
             //right turn
-            else if (front_left_sensor != 0) {
+            if (front_left_sensor != 0) {
                 //slow down to speed 1
                 if (robot->currentSpeed > 1) {
                     robot->direction = DOWN;
@@ -337,23 +324,38 @@ void robotAutoMotorMove(struct Robot * robot, int left_sensor, int front_left_se
                 }
             }
 
+            //left turn
+            else if (left_sensor == 0) {
+                //makes sure robot is at speed 2
+                if (robot->currentSpeed > 2) {
+                    robot->direction = DOWN;
+                }
+                else if (robot->currentSpeed < 2) {
+                    robot->direction = UP;
+                }
+                //actually turns the robot left
+                else {
+                    robot->direction = LEFT;
+                }
+            }
+
             //follow the left wall
             else if (left_sensor != 0 && front_left_sensor == 0) {
                 //sets speed to 4 to go forward
                 if (robot->currentSpeed < 4) {
                     robot->direction = UP;
                 }
-                //these two else-if statements stabilise the robot
-                //if robot too far away from wall, get closer by turning left
-                else if (left_sensor < 2) {
+
+                if (left_sensor < 2) {
                     robot->direction = LEFT;
                 }
+
                 //if robot too close to wall, turn right to get further away
                 else if (left_sensor > 2) {
                     robot->direction = RIGHT;
                 }
             }
-
         }
     }
+
 }
